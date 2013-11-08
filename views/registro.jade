@@ -1,0 +1,58 @@
+extends layout
+block content
+  include layout
+  block contenido
+    div#mundo
+      div#main
+        script
+          $(document).ready(function(){
+              $("#SignupForm").formToWizard({ submitButton: 'SaveAccount' })
+          });
+        form(id="SignupForm", method="post",action="/index")
+          fieldset
+            legend Informacion de Contacto
+            label(for="Name") Nombre
+            input(id="Name",name="nombres", type="text",required)            
+            label(for="Apellido") Apellido    
+            input(type="text",name="apellido",required)
+            label(for="Cedula") Cedula     
+            input(type="text",name="cedula",required)
+            label(for="fechanaci") Fecha de Nacimiento                   
+            label(for="dia") Día
+            select(type='number',name='dia',required)
+              -for(var i = 1; i<32; i++)
+                option #{i}
+            label(for="mes") Mes
+            select(type='number',name='mes',required)
+              -for(var i = 1; i<13; i++)
+                option #{i}
+            label(for="anio") Año
+            select(type='number',name='año',required)
+              -for(var i = 2014; i>1959; i--)
+                option #{i}
+            label#sexo(for="Sexo") Sexo    
+            select(type="text",name="sexo",required, default="F",required)
+              option F
+              option M
+          fieldset
+            legend Company information
+            label(for="Celular") Celular
+            input(type="text", name="celular",required)
+            label(for="Email") Email
+            input(id="Email",name="correo", type="email",required)
+            label(for="Direccion") Direccion
+            input(type="text", name="direccion",required)           
+          fieldset
+            legend Billing information
+            label(for="Usuario") Usuario
+            input(type="text", name="nick",required)
+            label(for="Password") Contraseña
+            input(id="Password", type="password", name="contraseña", required)
+            label(for="cuenta") Tipo de Cuenta
+            select(type="text", name="cuenta",required)
+              option Ahorros
+              option Corriente
+          p
+            input(id="SaveAccount", type="submit", value="Registrar")
+                    
+   include footer

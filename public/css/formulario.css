@@ -1,0 +1,19 @@
+
+        
+        #main { width:450px; margin: 0px auto; border:solid 1px #b2b3b5; -moz-border-radius:10px; padding:20px; background-color:#f6f6f6;}
+        
+        #main fieldset { border:none; width:320px;}
+        #main legend { font-size:18px; margin:0px; padding:10px 0px; color:#b0232a; font-weight:bold;}
+        #main label { display:block; margin:15px 0 5px;}
+        #main input[type=text],#main input[type=password],#main select,#main  input[type=email] { width:300px; padding:5px; border:solid 1px #000;}
+        #main select{display: inline-block; vertical-align: middle; margin: 0 auto;}
+        #main .prev, #main .next { background-color:#b0232a; padding:5px 10px; color:#fff; text-decoration:none;}
+        #main .prev:hover, #main .next:hover { background-color:#000; text-decoration:none;}
+        #main .prev { float:left; margin: 1em;}
+        #main .next { float:right; margin: 1em;}
+        #main #steps { list-style:none; width:100%; overflow:hidden; margin:0px; padding:0px;}
+        #main #main #steps li {font-size:24px; float:left; padding:10px; color:#b0b1b3;}
+        #main #steps li span {font-size:11px; display:block;}
+        #main #steps li.current { color:#000;}
+        #main #makeWizard { background-color:#b0232a; color:#fff; padding:5px 10px; text-decoration:none; font-size:18px;}
+        #main #makeWizard:hover { background-color:#000;}
