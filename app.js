@@ -33,9 +33,11 @@ if ('development' == app.get('env')) {
   app.use(express.errorHandler());
 }
 app.get('/', routes.index);
+app.get('/index', routes.index);
 app.post('/', routes.index);
 app.get('/users', user.list);
 app.get('/registro', routes.registro);
+
 app.post("/index", function(req,res){
   var nombreu = req.body.nombres;
   var apellido = req.body.apellido;
@@ -51,25 +53,31 @@ app.post("/index", function(req,res){
   var nick = req.body.nick;
   var contraseña = req.body.contraseña;
   var saldo = req.body.saldo;
-     new Usuario({
-        nombre: nombreu,
-        apellido: apellido,
-        dia: dia,
-        mes: mes,
-        año: año,
-        sexo: sexo,
-        cedula: cedula,
-        cuenta: cuenta,
-        direccion: direccion,
-        celular: celular,
-        correo: email,
-        nick: nick,
-        contraseña: contraseña        
-      }).save(function(err,docs){
-      if(err) res.send("error");
-      res.send(docs);      
-   });   
-   res.render('index');
+       new Usuario({
+          nombre: nombreu,
+          apellido: apellido,
+          dia: dia,
+          mes: mes,
+          año: año,
+          sexo: sexo,
+          cedula: cedula,
+          cuenta: cuenta,
+          direccion: direccion,
+          celular: celular,
+          correo: email,
+          nick: nick,
+          contraseña: contraseña
+        });
+Usuario.findOne(req.params.nick, function (err, doc) {
+  if(doc.nick == nick){
+    res.render('registro',{mensaje: "El usuario ya existe"});
+  }else{save(function(err,docs){
+        if(err) res.send("error");
+        res.send(docs);      
+     }); }  
+   
+   });
+res.render('index');
   });
 //
 app.get('/recarga', function(req, res){
@@ -164,14 +172,34 @@ app.get("/salAhorro", function (req , res) {
 if (req.session.miVariable != null){
   Usuario.findOne({nick: req.session.miVariable}).exec(function (err, resources) {
   Usuario.findOne({nick: req.session.miVariable}).exec(function (err, docs){
-    if(resources.cuenta=="Corriente"){
+    if(resources.cuenta=="Ahorros"){
     res.render("salAhorro", {
       usuarios: resources,
       users: docs,
       title: "Saldo Cuenta Ahorro"                  
         });
      }else{
-      res.render("index", {mensaje: "usted no porsee cuenta de ahorros"});
+      res.render("index", {mensaje: "usted no porsee cuenta de Ahorros"});
+     }
+      });
+    });
+
+  }else{
+    res.render("index" ,{  mensaje: "Debes iniciar sesion"});
+  };
+ });
+app.get("/salCorriente", function (req , res) {
+if (req.session.miVariable != null){
+  Usuario.findOne({nick: req.session.miVariable}).exec(function (err, resources) {
+  Usuario.findOne({nick: req.session.miVariable}).exec(function (err, docs){
+    if(resources.cuenta=="Corriente"){
+    res.render("salCorriente", {
+      usuarios: resources,
+      users: docs,
+      title: "Saldo Cuenta Corriente"                  
+        });
+     }else{
+      res.render("index", {mensaje: "usted no posee cuenta Corriente"});
      }
       });
     });
